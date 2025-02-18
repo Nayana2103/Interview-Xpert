@@ -1,0 +1,106 @@
+def predict(request):
+    if request.method=="POST":
+        age = request.POST.get('age') 
+        sex = request.POST.get('sex')
+        Chestpaintype = request.POST.get('Chestpaintype')
+        RestingBP = request.POST.get('RestingBP')
+        Cholesterol = request.POST.get('Cholesterol')
+        FastingBS = request.POST.get('FastingBS') 
+        RestingECG = request.POST.get('RestingECG')
+        MaxHR = request.POST.get('MaxHR')
+        ExerciseAngina = request.POST.get('ExerciseAngina')
+        Oldpeak = request.POST.get('Oldpeak')
+        ST_Slope = request.POST.get('ST_Slope')
+
+       
+        
+
+        # Create a dictionary with data
+        data = {
+            ' ': [2],
+            'age': [age],
+            'sex': [sex],
+            'Chestpaintype': [Chestpaintype],
+            'RestingBP': [RestingBP],
+            'Cholesterol': [Cholesterol],
+            'FastingBS': [FastingBS],
+            'RestingECG': [RestingECG],
+            'MaxHR': [MaxHR],
+            'ExerciseAngina': [ExerciseAngina],
+            'Oldpeak': [Oldpeak],
+            'ST_Slope': [ST_Slope],          
+
+        }
+        csv_file_path = os.path.join(settings.MEDIA_ROOT,'input/test/test.csv')
+        if os.path.exists(csv_file_path):
+            os.remove(csv_file_path)
+        # Create DataFrame
+        df = pd.DataFrame(data)
+
+        df.to_csv(csv_file_path, index=False)
+        result,result2=test1.predict()
+        un= request.session['username']
+        ins=restable(result=result,user_id=un)
+        ins.save()
+    return render(request,'prediction.html') 
+
+    def data_submit(request):
+    if request.method=="POST":
+        aq0 = int(request.POST.get('a',0))
+        aq1 = int(request.POST.get('b',0))
+        aq2 = int(request.POST.get('c',0))
+        aq3 = int(request.POST.get('d',0))
+        aq4 = int(request.POST.get('e',0))
+        aq5 = int(request.POST.get('f',0))
+        aq6 = int(request.POST.get('g',0))
+        aq7 = int(request.POST.get('h',0))
+        aq8 = int(request.POST.get('i',0))
+        aq9 = int(request.POST.get('j',0))
+        Age_Mons = request.POST.get('Age_Mons')
+        Qchat_10_Score = aq0 + aq1 + aq2 + aq3 + aq4 + aq5 + aq6 + aq7 + aq8 + aq9
+
+        Sex = request.POST.get('Sex')
+        Ethnicity = request.POST.get('ethnicity')
+        Jaundice = request.POST.get('Jaundice')
+        Family_mem_with_ASD = request.POST.get('Family_mem_with_ASD')
+        Who_completed_the_test = request.POST.get('who')
+        
+
+        # Create a dictionary with data
+        data = {
+            'A1_SCORE': [aq0],
+            'A2_SCORE': [aq1],
+            'A3_SCORE': [aq2],
+            'A4_SCORE': [aq3],
+            'A5_SCORE': [aq4],
+            'A6_SCORE': [aq5],
+            'A7_SCORE': [aq6],
+            'A8_SCORE': [aq7],
+            'A9_SCORE': [aq8],
+            'A10_SCORE': [aq9],
+            'Age_Mons': [Age_Mons],
+            'Qchat_10_Score': [Qchat_10_Score],
+            
+            'Sex': [Sex],
+            'Ethnicity': [Ethnicity],
+            'Jaundice': [Jaundice],
+            'Family_mem_with_ASD': [Family_mem_with_ASD],
+            'Who_completed_the_test': [Who_completed_the_test],
+
+        }
+        csv_file_path = os.path.join(settings.MEDIA_ROOT, 'autisum.csv')
+        if os.path.exists(csv_file_path):
+            os.remove(csv_file_path)
+        # Create DataFrame
+        df = pd.DataFrame(data)
+
+        # Remove blank column (if any)
+        # df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
+
+        # Write DataFrame to CSV
+        df.to_csv(csv_file_path, index=False)
+        result=test1.predict_autism()
+        un= request.session['username']
+        ins=restable(result=result,user_id=un)
+        ins.save()
+    return render(request, 'result.html',{'result':result})

@@ -1,0 +1,102 @@
+{% include 'header.html' %}
+<br> 
+<br>
+<br>
+<center>
+ 
+ <!-- Contact Start -->
+ <div class="container-fluid py-5">
+    <div class="container" style="max-width: 900px;">
+        <div class="row">
+            <div class="col-12">
+                <h3>Heart Disease Prediction App</h3>
+            </div>
+            <div class="col-12">
+                <div class="contact-form">
+                    <div id="success"></div>
+                    <form action="predict" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <td colspan="2">
+                                <label for="">Age</label>
+                                <input type="number" class="form-control" name="Age" placeholder="Age" min="29" max="77">
+                                
+                                     
+                                 
+                                 <label for="">Sex</label>
+                                     <select class="form-control" name="Sex" id="">
+                                         <option >Select</option>
+                                         <option value="0">male</option>
+                                         <option value="1">female</option>
+                                     </select>
+                                     </td>
+
+                                     <label for="">RestingBP</label>
+                                     <input type="number" class="form-control" name="RestingBP" placeholder="RestingBP" min="0" max="200">
+
+
+                                     <label for="">Cholesterol</label>
+                                     <input type="number" class="form-control" name="Cholesterol" placeholder="Cholesterol" min="0" max="603">
+
+                                     <label for="">FastingBS</label>
+                                     <input type="number" class="form-control" name="FastingBS" placeholder="FastingBS" min="0" max="200">
+                               
+
+                                <td colspan="4">
+                                    <label for="">RestingECG</label>
+                                    <select class="form-control" required name="RestingECG">
+                                        <option value="" >Select</option>
+                                        <option value="1">LVH</option>
+                                        <option value="2">Normal</option>
+                                        <option value="3">ST</option>
+                                        
+
+                                    </select>
+    
+                            
+                                    <label for="">MaxHR</label>
+                                    <input type="number" class="form-control" name="MaxHR" placeholder="MaxHR" min="60" max="202">
+                                    <td colspan="4">
+                                        <label for="">ExerciseAngina</label>
+                                        <select class="form-control" required name="ExerciseAngina">
+                                            <option value="" >Select</option>
+                                            <option value="1">Y</option>
+                                            <option value="2">N</option>
+                                            
+                                            
+
+                                    <label for="">Oldpeak</label>
+                                    <input type="number" class="form-control" name="Oldpeak" placeholder="Oldpeak" min="60" max="202">
+                                
+                            <label for="">ST_Slope</label>
+                                <select class="form-control" name="ST_Slope" id="">
+                                    <option >Select</option>
+                                    <option value="0">Down</option>
+                                    <option value="1">Flat</option>
+                                    <option value="3">Up</option>
+                                    
+                                </select>
+                           
+                            </td>
+                        </tr>
+                        <tr>
+                           
+                        </tr>
+                        
+                        <tr>
+                            <center>
+                            <td><input class="btn btn-primary" type="submit"></td>
+                        </tr>       
+
+                        <br><br>
+
+                        </center>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+</Center>
+{% include 'footer.html' %}

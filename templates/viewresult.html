@@ -1,0 +1,47 @@
+{% include 'header.html' %}
+
+  
+<br>
+<br>
+<center>
+<div class="col-md-6">
+    <div class="wow fadeInUp" data-wow-delay="0.5s">
+        <h1>View result</h1>
+        
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">slno</th>
+                        <th scope="col">result</th>
+                        <th scope="col">user_id</th>
+
+                        
+                        
+                        
+        
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    {% for i in result %}
+                    <tr>
+                        <td></strong>{{forloop.counter}}</td>
+                        <td></strong>{{i.result}}</td>
+                        <td>{{i.user_id}}</strong></td>
+                        
+        
+                        
+        
+                        
+                        
+        
+        
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody>
+            </table>
+        
+        
+                </div>
+                {% include 'footer.html' %}    

@@ -1,0 +1,101 @@
+{% include 'header.html' %}
+<br>
+<br>
+<br>
+<center>
+
+    <script>
+        let questions = [
+            "Tell me about yourself.",
+            "What are your strengths and weaknesses?",
+            "Why do you want to work for our company?",
+            "Describe a challenging project you worked on.",
+            "How do you handle stressful situations?",
+            "Where do you see yourself in five years?",
+            "Tell me about a time you worked in a team.",
+            "How do you stay updated with industry trends?",
+            "Describe a time you faced failure and how you handled it.",
+            "Why should we hire you?"
+        ];
+
+        let currentQuestionIndex = 0;
+        let questionInterval;
+
+        function startInterview() {
+            document.getElementById("video_feed").src = "start_interview";
+            document.getElementById("video_feed").style.display = "block"; // Show the video
+            document.getElementById("start_btn").disabled = true;
+            document.getElementById("stop_btn").disabled = false;
+            document.getElementById("next_btn").disabled = false; // Enable "Next Question" button
+
+            // Show the first question
+            displayQuestion();
+
+            // Start interval to change questions every 60 seconds (60000 ms)
+            questionInterval = setInterval(nextQuestion, 60000); // Auto-change question
+        }
+
+        function displayQuestion() {
+            if (currentQuestionIndex < questions.length) {
+                document.getElementById("question_text").innerText = questions[currentQuestionIndex];
+            } else {
+                document.getElementById("question_text").innerText = "Interview completed!";
+                clearInterval(questionInterval);
+                document.getElementById("next_btn").disabled = true; // Disable "Next" button after all questions
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+            } else {
+                clearInterval(questionInterval);
+                document.getElementById("question_text").innerText = "Interview completed!";
+                document.getElementById("next_btn").disabled = true; // Disable "Next" button
+            }
+        }
+
+        function stopInterview() {
+            fetch("stop_interview")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    document.getElementById("video_feed").src = "";
+                    document.getElementById("video_feed").style.display = "none"; // Hide the video
+                    document.getElementById("start_btn").disabled = false;
+                    document.getElementById("stop_btn").disabled = true;
+                    document.getElementById("next_btn").disabled = true; // Disable "Next Question" button
+                    document.getElementById("question_text").innerText = ""; // Clear the question
+                    clearInterval(questionInterval); // Stop the question interval
+                    currentQuestionIndex = 0; // Reset questions
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+<div class="container-fluid py-5">
+    <div class="container" style="max-width: 900px;">
+        <div class="row">
+            <div class="col-12">
+                <h1>Live Interview</h1>
+
+                <img id="video_feed" width="640" height="480" style="display: none;">
+                <br>
+
+                <h3 id="question_text" style="margin-top: 20px; color: #007bff;"></h3> <!-- Question display -->
+
+                <button id="start_btn" onclick="startInterview()">Start Interview</button>
+                <button id="stop_btn" onclick="stopInterview()" disabled>Stop Interview</button>
+                <button id="next_btn" onclick="nextQuestion()" disabled>Next Question</button> <!-- New "Next Question" button -->
+                
+                <br><br>
+                <a class="btn btn-primary" href="http://127.0.0.1:8000/interview_analysis">Interview Analysis</a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Contact End -->
+</Center>
+{% include 'footer.html' %}
